@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Project T1 - Admin Page</title>
+
+    <!-- CSS -->
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <link rel="stylesheet" href="static/styles.css">
+    
+    <!-- JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Racing+Sans+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-color"></div>
+    <div class="background-image"></div>
+    
+    <section class="section-1">
+        <div class="pageh1"><h1><span>P</span>ROJECT <span style="color: red;">T1</span></h1></div>
+    </section>
+
+    <section class="section-2">
+        <div class="sub-section-2">
+            <div>
+                <button id="runScriptStartDatabase" style="color: rgb(0, 93, 65); background-color: rgb(110, 250, 160); font-size: 29px;">START</button>
+            </div>
+            <!--
+            <div>
+                <div id="settingsNickname">
+                    <h3>Nickname:</h3>
+                    <div><input class="Top" type="text" id="playerOneInput" name="playerOneInput" placeholder="Blue player..."></div>
+                    <div><input class="Bottom" type="text" id="playerTwoInput" name="playerTwoInput" placeholder="Red player..."></div>
+                    <div class="among"></div>
+                    <button id="settingsNicknameSubmit" class="Left" type="submit" style="color: rgb(0, 13, 87); background-color: rgb(117, 172, 255);">Submit</button>
+                    <button id="resetNames" class="Right" type="reset">Reset Names</button>
+                </div>
+            </div>
+            -->
+        </div>
+    </section>
+
+    <main class="body-1">
+        <div id="table-content1" class="content1">
+            <button class="showDiv" data-div="hiDatacenter">FROM DATACENTER<img src="static/img/arrow_drop_down_1.svg"></button>
+            <div id="hiDatacenter" class="hiContent" style="background: none; padding: 0;">
+                <h3>Circuit ranking table: <span></span></h3>
+                <table id="TableDatacenter" class="customers">
+                    <tr>
+                    <th>Nickname</th>
+                    <th>Time</th>
+                    </tr>
+                </table>
+                <div class="among"></div>
+                <button id="saveTimeButton" class="Top" style="color: rgb(0, 13, 87); background-color: rgb(117, 172, 255);">Save Data</button>
+            </div>
+        </div>
+
+        <div class="content1 part-Ranking">
+            <button class="showDiv" data-div="hiRanking">RANKING<img src="static/img/arrow_drop_down_1.svg"></button>
+            <div id="hiRanking" class="hiContent">
+                <div><p id="first">1st <span id="ranking1st"></span></p></div>
+                <div><p id="second">2nd <span id="ranking2nd"></span></p></div>
+            </div>
+        </div>
+
+        <!--
+        <div class="content1">
+            <button class="showDiv" data-div="hiLogsTime">LOGS TIME<img src="static/img/arrow_drop_down_1.svg"></button>
+            <div id="hiLogsTime" class="hiContent">
+                <ul id="logs-time-list"></ul>
+            </div>
+        </div>
+        -->
+
+        <div class="content1">
+            <button class="showDiv" data-div="hiBlueRedTime">LOGS TIME<img src="static/img/arrow_drop_down_1.svg"></button>
+            <div id="hiBlueRedTime" class="hiContent" style="background: none; padding: 0;">
+                <div class="resp-1">
+                    <div style="color: cornflowerblue;">
+                        <h2><span for="playerOneInput">Blue</span> Time</h2>
+                        <ul id="blue-time-list"></ul>
+                    </div>
+                    <div style="color: red;">
+                        <h2><Span for="playerTwoInput">Red</Span> Time</h2>
+                        <ul id="red-time-list"></ul>
+                    </div>
+                </div>
+                <button id="runScriptDeleteDatabase" class="Top">Delete Database</button>
+            </div>
+        </div>
+
+        <div class="content1">      <!-- draggable="true" id="item1" -->
+            <button class="showDiv in" data-div="hiSettings">SETTINGS<img src="static/img/arrow_drop_down_1.svg"></button>
+
+            <div id="hiSettings" class="hiContent" style="display: none;">
+                <button id="runScriptStopServer">Stop Server</button>
+                <button id="runScriptDeleteDatabase">Delete Database</button>
+                <br><br><div class="among" style="margin: 25px;"></div>
+                <input type="text" id="table-name" class="Left" placeholder="Enter table name"><input type="number" id="INnumberLap" class="Mid" name="number" min="1" max="99" value="3"><button id="resetNamesTable" class="Right" type="reset">X</button>
+                <br><div class="among"></div>
+                <button id="saveTimeButton" class="Left" style="color: rgb(0, 13, 87); background-color: rgb(117, 172, 255);">Save Data</button>
+                <button id="refreshAllData" class="Right">Refresh all data</button>
+                <br><br><div class="among" style="margin: 25px;"></div>
+                <button id="runScriptStartDatabase" class="Left" style="color: rgb(0, 93, 65); background-color: rgb(110, 250, 160);">Start Database</button>
+                <button id="runScriptStopDatabase" class="Right" style="color: rgb(87, 0, 0); background-color: rgb(245, 113, 113);">Stop Database</button>
+                <br><br>
+                <div class="among" style="margin: 25px;"></div>
+
+                <div>
+                    <div id="settingsNickname">
+                        <h3>Nickname:</h3>
+                        <div><input class="Top" type="text" id="playerOneInput" name="playerOneInput" placeholder="Blue player..."></div>
+                        <div><input class="Bottom" type="text" id="playerTwoInput" name="playerTwoInput" placeholder="Red player..."></div>
+                        <div class="among"></div>
+                        <button id="settingsNicknameSubmit" class="Left" type="submit" style="color: rgb(0, 13, 87); background-color: rgb(117, 172, 255);">Submit</button>
+                        <button id="resetNames" class="Right" type="reset">Reset Names</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+
+
+
+<!-- SCRIPT JS -->
+<script>
+    function msToFormattedTime(ms) {
+        let minutes = Math.floor(ms / 60000);
+        let seconds = Math.floor((ms % 60000) / 1000);
+        let milliseconds = ms % 1000;
+        return `${minutes}m ${seconds}s ${milliseconds}ms`;
+    }
+
+    let playerOneName = 'Blue';
+    let playerTwoName = 'Red';
+
+    $(document).ready(function() {
+        $('#settingsNicknameSubmit').on('click', function() {
+        playerOneName = $('#playerOneInput').val();
+        playerTwoName = $('#playerTwoInput').val();
+        $('span[for="playerOneInput"]').text(playerOneName);
+        $('span[for="playerTwoInput"]').text(playerTwoName);
+        fetchData();
+    });
+
+    $('#resetNames').on('click', function() {
+        $('div#settingsNickname input').val('');
+        playerOneName = 'Blue';
+        playerTwoName = 'Red';
+        $('span[for="playerOneInput"]').text(playerOneName);
+        $('span[for="playerTwoInput"]').text(playerTwoName);
+        fetchData();
+    });
+    $('#resetNamesTable').on('click', function() {
+        $('input#table-name').val('');
+    });
+    });
+
+    let gofetchData;
+    let blueLap = 0;
+    let redLap = 0;
+    let blueTime = 0;
+    let redTime = 0;
+    let blueTotal = 0;
+    let redTotal = 0;
+    function fetchData() {
+        if (redLap == numberLap) {
+                clearInterval(gofetchData);
+                StopDatabase();
+                console.log(`Cannot start process :'(       blueTotal: ${blueTotal} + redTotal: ${redTotal} != 0 or/and blueLap: ${blueLap} and redLap: ${redLap} = ${numberLap}`);
+            }
+        $.getJSON('/data', function(data) {
+
+            const blueIds = new Set();
+            const redIds = new Set();
+
+            $('#blue-time-list').children().each(function() {
+                const id = $(this).data('id');
+                if (id) {
+                    blueIds.add(id);
+                }
+            });
+
+            $('#red-time-list').children().each(function() {
+                const id = $(this).data('id');
+                if (id) {
+                    redIds.add(id);
+                }
+            });
+
+            for (let i = 0; i < data.blue_data.length; i++) {
+                const blueLap = data.blue_data[i][0];
+                const blueTime = msToFormattedTime(data.blue_data[i][1]);
+                const blueId = `blue-${blueLap}`;
+
+                if (!blueIds.has(blueId)) {
+                    $('#blue-time-list').append('<li data-id="' + blueId + '">' + blueLap + "/" + numberLap + " : " + blueTime + '</li>');
+                }
+            }
+
+            for (let i = 0; i < data.red_data.length; i++) {
+                const redLap = data.red_data[i][0];
+                const redTime = msToFormattedTime(data.red_data[i][1]);
+                const redId = `red-${redLap}`;
+
+                if (!redIds.has(redId)) {
+                    $('#red-time-list').append('<li data-id="' + redId + '">' + redLap + "/" + numberLap + " : " + redTime + '</li>');
+                }
+            }
+
+
+            blueLap = 0;
+            redLap = 0;
+            const uniqueCombinations = new Set();
+
+            for (let o = 0; o < data.red_data.length; o++) {
+                redLap = data.red_data[o][0];
+                redTotal = data.red_data[o][1];
+            }
+
+            for (let o = 0; o < data.blue_data.length; o++) {
+                blueLap = data.blue_data[o][0];
+                blueTotal = data.blue_data[o][1];
+            }
+
+            const currentCombination = `${redLap}-${blueLap}`;
+
+            if (!uniqueCombinations.has(currentCombination)) {
+                uniqueCombinations.add(currentCombination);
+
+                if (blueLap === redLap) {
+                    if (blueTotal < redTotal) {
+                        $('#ranking1st').text(playerOneName).css('color', 'cornflowerblue');
+                        $('#ranking2nd').text(playerTwoName).css('color', 'red');
+                    } else if (blueTotal > redTotal) {
+                        $('#ranking1st').text(playerTwoName).css('color', 'red');
+                        $('#ranking2nd').text(playerOneName).css('color', 'cornflowerblue');
+                    } else {
+                        $('#ranking1st').text(`${playerOneName} and ${playerTwoName}`);
+                        $('#ranking2nd').text('');
+                    }
+                } else if (blueLap > redLap) {
+                    $('#ranking1st').text(playerOneName).css('color', 'cornflowerblue');
+                    $('#ranking2nd').text(playerTwoName).css('color', 'red');
+                } else if (blueLap < redLap) {
+                    $('#ranking1st').text(playerTwoName).css('color', 'red');
+                    $('#ranking2nd').text(playerOneName).css('color', 'cornflowerblue');
+                }
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        gofetchData;
+    });
+
+$('#saveTimeButton').on('click', function() {
+    const tableName = $('#table-name').val(); // Get the table name from the input field
+    $.ajax({
+        url: '/save_data',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            table_name: tableName,
+            number_lap: numberLap,
+            blue_total: blueTotal,
+            player_one_name: playerOneName,
+            red_total: redTotal,
+            player_two_name: playerTwoName
+        }),
+        success: function(response) {
+            // Redirect or update the UI as needed
+            console.log('Data saved successfully');
+        },
+        error: function() {
+            console.error('Error saving data');
+        }
+    });
+    callDatacenterHello();
+});
+function loadTableNames() {
+    $.ajax({
+        url: '/get_table_names',
+        method: 'GET',
+        success: function(response) {
+            const dataList = document.createElement('datalist');
+            dataList.id = 'table-names';
+            response.forEach(tableName => {
+                const option = document.createElement('option');
+                option.value = tableName;
+                dataList.appendChild(option);
+            });
+            document.body.appendChild(dataList);
+            $('#table-name').attr('list', 'table-names');
+        },
+        error: function() {
+            console.error('Error fetching table names');
+        }
+    });
+}
+
+            function sendNumberToArduino() {
+                $.ajax({
+                    url: "/send_number",
+                    method: "POST",
+                    data: {number: numberLap},
+                    success: function() {
+                        console.log("Number sent to Arduino");
+                    },
+                    error: function() {
+                        console.log("Failed to send number");
+                    }
+                });
+            }
+
+</script>
+
+<script>
+let dataColor = 'white';
+function callDatacenter(tableName) {
+    $.getJSON('/datacenter', {table_name: tableName}, function(data) {
+        let table = $('#TableDatacenter');
+        table.find('tr:gt(0)').remove(); // Remove all rows except the header
+
+        // Sort the data based on the second column (Time) in ascending order
+        data.sort(function(a, b) {
+            return a[2] - b[2];
+        });
+
+        for (let i = 0; i < data.length; i++) {
+            dataColor = data[i][0];
+            dataNickname = data[i][1];
+            dataTime = msToFormattedTime(data[i][2]);
+            let newRow = $('<tr></tr>').addClass(dataColor).append('<td>' + dataNickname + '</td>').append('<td>' + dataTime + '</td>');
+            table.append(newRow);
+        }
+    });
+}
+let tableName = 'circuit_num1';
+$('#table-name').on('change', function() {
+    tableName = $(this).val();
+    callDatacenterHello();
+});
+let numberLap = '3';
+$('#INnumberLap').on('change', function() {
+    numberLap = $(this).val();
+    callDatacenterHello();
+});
+function callDatacenterHello() {
+    callDatacenter(tableName);
+    $('#hiDatacenter h3 span').text(tableName)
+}
+
+
+
+function DeleteDatabase() {
+        $('#blue-time-list').empty();
+        $('#red-time-list').empty();
+        $('#ranking1st').empty();
+        $('#ranking2nd').empty();
+        StopDatabase();
+        $.ajax({
+        url: '/delete_database',
+        type: 'DELETE',
+        success: function(data) {
+            console.log(data);
+        }
+        });
+        blueTotal = 0;
+        blueLap = 0;
+        redTotal = 0;
+        redLap = 0;
+    }
+
+$(document).ready(function() {
+    refreshAllData();
+    loadTableNames();
+});
+</script>
+
+<script>
+    $('#refreshAllData').on('click', function() {
+        refreshAllData();
+    });
+    function refreshAllData() {
+        fetchData();
+        callDatacenterHello();
+        loadTableNames();
+    };
+
+    function StartDatabase() {
+        $.get('/start_database', function(data) {
+        console.log(data);
+        });
+    }
+    function StopDatabase() {
+        removeRunning();
+        $.get('/stop_database', function(data) {
+        console.log(data);
+        });
+    }
+
+    $(document).ready(function() {
+        $('#runScriptStartDatabase').on('click', function() {
+            if (redLap != numberLap && blueTotal + redTotal == 0) {
+                sendNumberToArduino();
+                StartDatabase();
+                gofetchData = setInterval(fetchData, 1000);
+            } else {
+                clearInterval(gofetchData);
+                removeRunning();
+                console.log(`Cannot start process :'(       blueTotal: ${blueTotal} + redTotal: ${redTotal} != 0 or/and blueLap: ${blueLap} and redLap: ${redLap} = ${numberLap}`);
+            }
+        });
+
+        $('#runScriptStopDatabase').on('click', function() {
+            clearInterval(gofetchData);
+            StopDatabase();
+        });
+    });
+    
+    $('#runScriptDeleteDatabase').on('click', function() {
+    if (confirm('Are you sure you want to delete the database?')) {
+        clearInterval(gofetchData);
+        StopDatabase();
+        DeleteDatabase();
+    }
+    });
+
+    $('#runScriptStopServer').on('click', function() {
+        if (confirm('Are you sure you want to stop server?')) {
+            $.get('/stop_server', function(data) {
+            console.log(data);
+            location.reload();
+            });
+        }
+    });
+
+
+    $(".showDiv").click(function () {
+        var divId = $(this).data("div");
+        $(this).toggleClass("in");
+        $("#" + divId).toggle();
+    });
+
+    $("#runScriptStartDatabase").on("click", function() {
+        var button = $(this);
+        if (!button.hasClass("running")) {
+        button.addClass("running");
+        }
+    });
+    function removeRunning() {
+        var button = $("#runScriptStartDatabase");
+        if (button.hasClass("running")) {
+            button.removeClass("running");
+        }
+    }
+</script>
+
+<!-- <script>
+    let draggedItem = null;
+
+    $(".content1").on("dragstart", function(e) {
+    draggedItem = $(this);
+    $(this).css("opacity", "0.5");
+    });
+
+    $(".content1").on("dragend", function(e) {
+    $(this).css("opacity", "");
+    });
+
+    $(".content1").on("dragover", function(e) {
+    e.preventDefault();
+    });
+
+    $(".content1").on("dragenter", function(e) {
+    $(this).css("background-color", "rgba(0, 0, 0, 0.1)");
+    });
+
+    $(".content1").on("dragleave", function(e) {
+    $(this).css("background-color", "");
+    });
+
+    $(".content1").on("drop", function(e) {
+    $(this).css("background-color", "");
+    let tempContent = $(this).html();
+    $(this).html(draggedItem.html());
+    draggedItem.html(tempContent);
+    savePositions();
+    });
+
+    // function savePositions() {
+    //     let positions = {};
+    //     $(".content1").each(function() {
+    //         positions[$(this).attr("id")] = $(this).html();
+    //     });
+    //     localStorage.setItem("gridPositions", JSON.stringify(positions));
+    // }
+
+    // function loadPositions() {
+    //     let positions = JSON.parse(localStorage.getItem("gridPositions"));
+    //     if (positions) {
+    //         for (const id in positions) {
+    //         $("#" + id).html(positions[id]);
+    //         }
+    //     }
+    // }
+
+    // loadPositions();
+</script> -->
+
+
+
+<!-- STYLES -->
+<style>
+:root {
+    --color-bkg-1: rgba(0, 0, 0, 0.25);
+    /* rgba(0, 0, 0, 0.25) */
+    --color-main-1: white;
+    /* rgb(227, 117, 0) */
+    --border-radius-1: 20px;
+}
+* {
+    margin: 0;
+}
+body {
+    /* font-family: 'Press Start 2P', cursive; */
+    font-family: 'Mulish', sans-serif;
+
+    background-color: #333333;
+    /* background-color: black; */
+    color: white;
+}
+main.body-1 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2vw;
+    margin: 20px 50px;
+}
+/* main.body-1 {
+    background-image: url(img/checkerboard-white.jpg);
+} */
+/* section.section-1 {
+    width: 100%;
+    height: 700px;
+    background-image: url(img/j-a-miller-s-2021-11-06-23-59-32.jpg);
+    background-size: cover;
+} */
+section.section-2 {
+    display: flex;
+    justify-content: center;
+}
+.sub-section-2 {
+    display: flex;
+    gap: 20px;
+}
+
+h2, h3 {
+    font-weight: normal;
+    /* margin-bottom: 10px; */
+}
+
+
+button {
+    transition: 100ms;
+}
+button:active {
+    transform: scale(0.9);
+}
+input[type="text"] {
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+}
+input[type="text"].Top {
+    margin: 2.5px 0;
+    border-radius: 10px 10px 0 0;
+}
+input[type="text"].Bottom {
+    margin: 0 0 7px 0;
+    border-radius: 0 0 10px 10px;
+}
+input[type="text"].Left {
+    margin: 0 4px 0 0;
+    border-radius: 10px 1px 1px 10px;
+}
+input[type="number"] {
+    max-width: 30px;
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: none;
+}
+input[type="number"].Mid {
+    margin: 0 4px 0 0;
+    border-radius: 1px;
+}
+
+div.background-color {
+    display: none;
+    background: rgb(0,0,0);
+    background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(217,217,217,0) 50%);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+div.background-image {
+    /* display: none; */
+    background-image: url(static/img/Vector.png);
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    background-attachment: fixed;
+    background-size: cover;
+    position: fixed;
+}
+.resp-1 {
+    max-height: 100%;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+
+    padding: 20px 40px;
+    border-radius: var(--border-radius-1);
+    background-color: var(--color-bkg-1);
+}
+.among {
+    margin: 4px;
+}
+.content1 {
+    background-color: var(--color-bkg-1);
+    /* backdrop-filter: blur(2px); */
+    /* margin: 20px 50px; */
+    padding: 20px 40px;
+    height: fit-content;
+    
+    border-radius: var(--border-radius-1);
+    /* border: 1.5px solid #031536; */
+    /* box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px; */
+}
+.content1 .showDiv {
+    font-family: 'Mulish', sans-serif;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.25);
+
+    display: flex;
+    align-items: center;
+
+    font-size: 15px;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.1s;
+    border-radius: 99px;
+    border: 1px solid rgba(209, 241, 255, 0);
+}
+.content1 .showDiv:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.content1 .showDiv img {
+    display: inline-flex;
+    height: 9px;
+    width: 12.5px;
+    margin-left: 16px;
+
+    transition: 500ms;
+    transform: rotate(180deg);
+}
+.content1 .showDiv.in img {
+    transform: rotate(0deg);
+}
+.hiContent {
+    margin: 20px 0;
+    padding: 20px 40px;
+    border-radius: var(--border-radius-1);
+    background-color: var(--color-bkg-1);
+}
+button {
+    background-color: rgb(173, 173, 173);
+    font-family: 'Mulish', sans-serif;
+    font-size: 12px;
+    color: black;
+    padding: 10px 18px;
+    border-radius: 10px;
+    border: 1.5px solid rgb(240 240 240);
+}
+button:hover {
+    /* background-color: rgb(163, 163, 163); */
+    filter: brightness(0.8);
+}
+button.Top {
+    border-radius: 1px 1px 10px 10px;
+}
+button.Left {
+    border-radius: 10px 1px 1px 10px;
+}
+button.Right {
+    border-radius: 1px 10px 10px 1px;
+}
+button.running {
+    filter: brightness(0.7);
+    cursor: not-allowed;
+}
+
+
+#hiDatacenter h3 {
+    margin-bottom: 3px;
+}
+#hiDatacenter h3 span {
+    font-weight: bold;
+}
+
+
+div#hiRanking {
+    font-family: 'Racing Sans One', cursive;
+    font-size: 20px;
+}
+div#hiRanking p#first {
+    color: gold;
+}
+div#hiRanking p#second {
+    color: silver;
+}
+.part-Ranking span {
+    font-size: 55px;
+}
+
+
+.pageh1 {
+    padding: 0 0 20px 50px;
+}
+.pageh1 h1 {
+    padding: 50px 0 0 0;
+    color: var(--color-main-1);
+    font-size: calc(5vw);
+    /* font-family: 'Press Start 2P', cursive; */
+    text-align: center;
+    font-family: 'Racing Sans One', cursive;
+}
+.pageh1 h1 span {
+    font-size: calc(7vw);
+}
+
+.customers {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.customers td, .customers th {
+    font-weight: normal;
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.customers tr:nth-child(even){background-color: var(--color-bkg-1);}
+
+.customers tr:hover {filter: brightness(0.7);}
+
+.customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: white;
+    color: black;
+}
+.customers tr.blue td {
+    color: cornflowerblue;
+}
+.customers tr.red td {
+    color: red;
+}
+</style>
+
+
+
+<!-- CSS ANIMATION -->
+<!-- <style>
+    div#hiBlueRedTime li {
+        opacity: 0;
+        will-change: transform;
+        transform: translateX(-30px);
+        animation: preShow 2.8s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+    }
+    div#hiRanking p span {
+        opacity: 0;
+        will-change: transform;
+        transform: translateX(-30px);
+        animation: preShow 2.8s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+    }
+    .content1 {
+        opacity: 0;
+        will-change: transform;
+        transform: translateY(-50px);
+        animation: preShow 2.8s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+    }    
+    @keyframes preShow {
+        0% {
+        box-shadow: none;
+        }
+        60% {
+        box-shadow: none;
+        opacity: 1;
+        transform: translateX(0);
+        }
+        100% {
+        opacity: 1;
+        transform: translateX(0);
+        }
+    }
+</style> -->
