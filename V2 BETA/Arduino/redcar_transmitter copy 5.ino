@@ -17,7 +17,6 @@ DFRobot_TCS34725 tcs = DFRobot_TCS34725(&Wire, TCS34725_ADDRESS, TCS34725_INTEGR
 int buttonState = 0;
 int prevButtonState = HIGH;
 int stateProcess = 0;
-int confStart = 0;
 
 
 void setup() {
@@ -44,10 +43,10 @@ void loop() {
   buttonState = digitalRead(buttonPin);
   digitalWrite(LED_PIN, LOW);
 
-  confStart = 0;
+  stateProcess = 0;
   helloLED();
 
-  if (buttonState != prevButtonState && buttonState == LOW) {
+  if (buttonState == LOW) {
     stateProcess = 1;
     laps_detection();
   }
@@ -56,13 +55,10 @@ void loop() {
 
 
 void laps_detection() {
-  if (confStart != 1) {
-    while (confStart != 1) {
-      helloLED();
-      checkColorStart();
-    }
-  }
-  if (confStart == 1) {
+  uint16_t clear, red, green, blue;
+  tcs.getRGBC(&red, &green, &blue, &clear);
+  tcs.lock();
+  if (red >= green + blue) {
     stateProcess = 2;
     helloLED();
     startMillis = millis();
@@ -95,18 +91,11 @@ void laps_detection() {
       }
     }
   }
+  else {
+    helloLED();
+    }
   counter = 1;
   stateProcess = 0;
-  Serial.println("<red-end>");
-}
-
-void checkColorStart() {
-  uint16_t clear, red, green, blue;
-  tcs.getRGBC(&red, &green, &blue, &clear);
-  tcs.lock();
-  if (red >= green + blue) {
-    confStart = 1;
-  }
 }
 
 void helloLED() {
