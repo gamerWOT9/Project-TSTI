@@ -61,6 +61,7 @@ void laps_detection() {
       helloLED();
       checkColorStart();
     }
+    delay(2000);
   }
   if (confStart == 1) {
     stateProcess = 2;
