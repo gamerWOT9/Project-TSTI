@@ -3,7 +3,7 @@
 RF24 radio(7, 8); // CE, CSN
 
 // Define
-#define LED_PIN 13
+#define LED_PIN 5
 #define buttonPin 2
 
 const byte address[6] = "00001";
@@ -34,12 +34,14 @@ void setup() {
 
   pinMode(buttonPin, INPUT_PULLUP);
   digitalWrite(buttonPin, HIGH);
+
+  pinMode(LED_PIN, OUTPUT);
 }
 
 
 void loop() {
   buttonState = digitalRead(buttonPin);
-  digitalWrite(LED_PIN, LOW);
+  digitalWrite(LED_PIN, HIGH);
 
   helloLED();
 
@@ -52,6 +54,9 @@ void loop() {
 
 
 void laps_detection() {
+  uint16_t clear, red, green, blue;
+  tcs.getRGBC(&red, &green, &blue, &clear);
+  tcs.lock();
   if (red >= green + blue) {
     stateProcess = 2;
     startMillis = millis();
@@ -84,7 +89,7 @@ void laps_detection() {
       }
     }
   }
-  Serial.println("<red-end>");
+  Serial.println("ohayo");
   counter = 1;
   stateProcess = 0;
 }
