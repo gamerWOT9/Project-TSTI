@@ -55,6 +55,9 @@
             <button class="showDiv" data-div="hiDatacenter">FROM DATACENTER<img src="static/img/arrow_drop_down_1.svg"></button>
             <div id="hiDatacenter" class="hiContent" style="background: none; padding: 0;">
                 <h3>Circuit ranking table: <span></span></h3>
+                <select name="select-table-name" id="table-nameselect">
+                    <option value="circuit_num1">circuit_num1</option>
+                </select>
                 <table id="TableDatacenter" class="customers">
                     <tr>
                     <th>Nickname</th>
@@ -62,7 +65,6 @@
                     </tr>
                 </table>
                 <div class="among"></div>
-                <button id="saveTimeButton" class="Top" style="color: rgb(0, 13, 87); background-color: rgb(117, 172, 255);">Save Data</button>
             </div>
         </div>
 
@@ -86,7 +88,7 @@
         <div class="content1">
             <button class="showDiv" data-div="hiBlueRedTime">LOGS TIME<img src="static/img/arrow_drop_down_1.svg"></button>
             <div id="hiBlueRedTime" class="hiContent" style="background: none; padding: 0;">
-                <div class="resp-1">
+                <div class="resp-1" style="border-radius: 2px;">
                     <div style="color: cornflowerblue;">
                         <h2><span for="playerOneInput">Blue</span> Time</h2>
                         <ul id="blue-time-list"></ul>
@@ -96,6 +98,7 @@
                         <ul id="red-time-list"></ul>
                     </div>
                 </div>
+                <button id="saveTimeButton" class="Top" style="color: rgb(0, 13, 87); background-color: rgb(117, 172, 255);">Save Data</button>
                 <button id="runScriptDeleteDatabase" class="Top">Delete Database</button>
             </div>
         </div>
@@ -311,6 +314,28 @@ function loadTableNames() {
         }
     });
 }
+function loadTableNames() {
+    $.ajax({
+        url: '/get_table_names',
+        method: 'GET',
+        success: function(response) {
+            const selectElement = document.createElement('select');
+            selectElement.id = 'table-nameselect';
+            response.forEach(tableName => {
+                const option = document.createElement('option');
+                option.value = tableName;
+                option.text = tableName; // Set the text of the option to be the same as the value
+                selectElement.appendChild(option);
+            });
+            document.body.appendChild(selectElement);
+        },
+        error: function() {
+            console.error('Error fetching table names');
+        }
+    });
+}
+
+
 
             function sendNumberToArduino() {
                 $.ajax({
@@ -351,6 +376,10 @@ function callDatacenter(tableName) {
 }
 let tableName = 'circuit_num1';
 $('#table-name').on('change', function() {
+    tableName = $(this).val();
+    callDatacenterHello();
+});
+$('#table-nameselect').on('change', function() {
     tableName = $(this).val();
     callDatacenterHello();
 });
@@ -577,7 +606,7 @@ h2, h3 {
 button {
     transition: 100ms;
 }
-button:active {
+button:not(.running):active {
     transform: scale(0.9);
 }
 input[type="text"] {
@@ -711,7 +740,7 @@ button.Right {
 }
 button.running {
     filter: brightness(0.7);
-    cursor: not-allowed;
+    cursor: wait;
 }
 
 
