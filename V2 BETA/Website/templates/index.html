@@ -54,10 +54,11 @@
         <div id="table-content1" class="content1">
             <button class="showDiv" data-div="hiDatacenter">FROM DATACENTER<img src="static/img/arrow_drop_down_1.svg"></button>
             <div id="hiDatacenter" class="hiContent" style="background: none; padding: 0;">
-                <h3>Circuit ranking table: <span></span></h3>
-                <select name="select-table-name" id="table-nameselect">
-                    <option value="circuit_num1">circuit_num1</option>
-                </select>
+                <h3>Circuit ranking table: <!-- <span></span> -->
+                    <select name="select-table-name" id="table-nameselect">
+                        <!-- <option value="circuit_num1">circuit_num1</option> -->
+                    </select>
+                </h3>
                 <table id="TableDatacenter" class="customers">
                     <tr>
                     <th>Nickname</th>
@@ -108,14 +109,14 @@
 
             <div id="hiSettings" class="hiContent" style="display: none;">
                 <button id="runScriptStopServer">Stop Server</button>
-                <button id="runScriptDeleteDatabase">Delete Database</button>
+                <!-- <button id="runScriptDeleteDatabase">Delete Database</button> -->
                 <br><br><div class="among" style="margin: 25px;"></div>
                 <input type="text" id="table-name" class="Left" placeholder="Enter table name"><input type="number" id="INnumberLap" class="Mid" name="number" min="1" max="99" value="3"><button id="resetNamesTable" class="Right" type="reset">X</button>
                 <br><div class="among"></div>
-                <button id="saveTimeButton" class="Left" style="color: rgb(0, 13, 87); background-color: rgb(117, 172, 255);">Save Data</button>
+                <!-- <button id="saveTimeButton" class="Left" style="color: rgb(0, 13, 87); background-color: rgb(117, 172, 255);">Save Data</button> -->
                 <button id="refreshAllData" class="Right">Refresh all data</button>
                 <br><br><div class="among" style="margin: 25px;"></div>
-                <button id="runScriptStartDatabase" class="Left" style="color: rgb(0, 93, 65); background-color: rgb(110, 250, 160);">Start Database</button>
+                <!-- <button id="runScriptStartDatabase" class="Left" style="color: rgb(0, 93, 65); background-color: rgb(110, 250, 160);">Start Database</button> -->
                 <button id="runScriptStopDatabase" class="Right" style="color: rgb(87, 0, 0); background-color: rgb(245, 113, 113);">Stop Database</button>
                 <br><br>
                 <div class="among" style="margin: 25px;"></div>
@@ -314,27 +315,24 @@ function loadTableNames() {
         }
     });
 }
-function loadTableNames() {
+function loadTableNameSelect() {
+    $('#table-nameselect').html('');
     $.ajax({
         url: '/get_table_names',
         method: 'GET',
         success: function(response) {
-            const selectElement = document.createElement('select');
-            selectElement.id = 'table-nameselect';
             response.forEach(tableName => {
-                const option = document.createElement('option');
-                option.value = tableName;
-                option.text = tableName; // Set the text of the option to be the same as the value
-                selectElement.appendChild(option);
+                $('#table-nameselect')
+                .append($("<option></option>")
+                .attr("value", tableName)
+                .text(tableName));
             });
-            document.body.appendChild(selectElement);
         },
         error: function() {
             console.error('Error fetching table names');
         }
     });
 }
-
 
 
             function sendNumberToArduino() {
@@ -416,7 +414,6 @@ function DeleteDatabase() {
 
 $(document).ready(function() {
     refreshAllData();
-    loadTableNames();
 });
 </script>
 
@@ -428,6 +425,7 @@ $(document).ready(function() {
         fetchData();
         callDatacenterHello();
         loadTableNames();
+        loadTableNameSelect();
     };
 
     function StartDatabase() {
@@ -745,7 +743,11 @@ button.running {
 
 
 #hiDatacenter h3 {
+    padding: 12px;
     margin-bottom: 3px;
+    color: black;
+    background-color: white;
+    border-radius: 10px 10px 1px 1px;
 }
 #hiDatacenter h3 span {
     font-weight: bold;
