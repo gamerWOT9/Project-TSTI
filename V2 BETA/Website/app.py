@@ -12,7 +12,7 @@ def index():
 
 def send_number_to_arduino(number):
     laps_string = f"<start-laps={number}>"
-    with serial.Serial('/dev/ttyACM0', 115200) as arduino:
+    with serial.Serial('/dev/ttyUSB0', 115200) as arduino:
         arduino.write(laps_string.encode())
         time.sleep(3)
         arduino.write(laps_string.encode())

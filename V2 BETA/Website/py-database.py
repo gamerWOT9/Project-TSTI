@@ -9,7 +9,7 @@ c = conn.cursor()
 c.execute('''CREATE TABLE IF NOT EXISTS blue_data (blue_lap INTEGER, blue_time INTEGER)''')
 c.execute('''CREATE TABLE IF NOT EXISTS red_data (red_lap INTEGER, red_time INTEGER)''')
 
-ser = serial.Serial('/dev/ttyACM0', 115200)
+ser = serial.Serial('/dev/ttyUSB0', 115200)
 
 # Regular expressions to extract the time values
 blue_lap_pattern = re.compile(r'<blue-lap=(\d+)>')
