@@ -1,0 +1,139 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Augustin</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+</body>
+<main>
+    <div id="table-content1" class="content1">
+        <div id="hiDatacenter" class="hiContent" style="background: none; padding: 0;">
+            <h3>Bar chart: <span></span></h3>
+            <button id="refreshAllData" class="Right">Refresh all data</button><br>
+            <button id="runScriptStartDatabase" class="Left" style="color: rgb(0, 93, 65); background-color: rgb(110, 250, 160);">Start Database</button>
+            <button id="runScriptStopDatabase" class="Right" style="color: rgb(87, 0, 0); background-color: rgb(245, 113, 113);">Stop Database</button>
+
+            <div id="humidity"></div>
+            <div id="temperature"></div>
+            <div id="sound"></div>
+        </div>
+    </div>
+</main>
+</html>
+
+<script>
+        $(document).ready(function() {
+            fetchData();
+            $('#runScriptStartDatabase').on('click', function() {
+                StartDatabase();
+            });
+        });
+        function StartDatabase() {
+            $.get('/start_database', function(data) {
+            console.log(data);
+            });
+        }
+        $('#runScriptStopDatabase').on('click', function() {
+            StopDatabase();
+        });
+        function StopDatabase() {
+        $.get('/stop_database', function(data) {
+        console.log(data);
+        });
+        }
+        
+        $('#refreshAllData').on('click', function() {
+            refreshAllData();
+        });
+        function refreshAllData() {
+            fetchData();
+        };
+</script>
+
+<script>
+    let humidity = 0;
+    let temperature = 0;
+    let sound = 10;
+    function fetchData() {
+        $.getJSON('/data', function(data) {
+            for (let o = 0; o < data.humidity_data.length; o++) {
+                humidity = data.humidity_data[o][0];
+            }
+            for (let o = 0; o < data.temperature_data.length; o++) {
+                temperature = data.temperature_data[o][0];
+            }
+            for (let o = 0; o < data.sound_data.length; o++) {
+                sound = data.sound_data[o][0];
+            }
+        });
+        Graphs();
+    }
+    function Graphs() {
+        // Update elements with new values
+        $("#humidity").text(`${humidity}%`);
+        $("#temperature").text(`${temperature}°C`);
+        $("#sound").text(`${sound}dB`);
+    }
+</script>
+
+<style>
+    :root {
+        --color-bkg-1: rgba(0, 0, 0, 0.25);
+        /* rgba(0, 0, 0, 0.25) */
+        --color-main-1: white;
+        /* rgb(227, 117, 0) */
+        --border-radius-1: 20px;
+    }
+    * {
+        margin: 0;
+    }
+    body {
+        /* font-family: 'Press Start 2P', cursive; */
+        font-family: 'Mulish', sans-serif;
+
+        background-color: #333333;
+        /* background-color: black; */
+        color: white;
+    }
+    main {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2vw;
+        margin: 20px 50px;
+    }
+
+    
+#humidity, #temperature, #sound {
+  font-size: 24px;
+  font-weight: bold;
+  color: #007BFF;
+  margin-bottom: 10px;
+}
+
+#humidity {
+  background-color: #FF0000;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+#temperature {
+  background-color: #00FF00;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+#sound {
+  background-color: #0000FF;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+</style>

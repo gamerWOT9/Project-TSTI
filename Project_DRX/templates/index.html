@@ -1,0 +1,312 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Augustin</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+</body>
+<main>
+    <div id="navbar" class="navbar">
+        <ul>
+            <li><a href="#whome" id="defaultOpen1">HOME</a></li>
+            <li><a href="#wtable">TABLE</a></li>
+            <li><a href="#winfo">INFO</a></li>
+        </ul>
+    </div>
+    <div><h1>PROJECT <span>DRX</span></h1></div>
+    <div>
+        <section id="whome" class="lightbox">
+            <div>
+                <h2>Home</h2>
+                <div>
+                    <h3>Settings: <span></span></h3>
+                    <button id="refreshAllData">Refresh all data</button><br><div class="among"></div>
+                    <button id="runScriptStartDatabase" class="Left" style="color: rgb(0, 93, 65); background-color: rgb(110, 250, 160);">Start Database</button>
+                    <button id="runScriptStopDatabase" class="Right" style="color: rgb(87, 0, 0); background-color: rgb(245, 113, 113);">Stop Database</button>
+                    <br><br>
+
+                    <div style="display: flex; gap: 35px;">
+                        <div><div>Humidity</div><div id="humidity"></div></div>
+                        <div><div>Temperature</div><div id="temperature"></div></div>
+                        <div><div>Sound</div><div id="sound"></div></div>
+                    </div>
+                </div>
+                <div style="position: relative; height: 70vh; width: 100%">
+                    <canvas id="myChart"></canvas>
+                </div>
+            </div>
+        </section>
+        <section id="wtable" class="lightbox">
+            <div>
+                <h2>Table</h2>
+            </div>
+        </section>
+        <section id="winfo" class="lightbox">
+            <div>
+                <h2>Info</h2>
+            </div>
+        </section>
+    </div>
+</main>
+</html>
+
+<!-- READY -->
+<script>
+    $('a#defaultOpen1')[0].click();
+
+    $(document).ready(function() {
+        refreshAllData();
+    });
+</script>
+
+<!-- BUTTON -->
+<script>
+        $(document).ready(function() {
+            $('#runScriptStartDatabase').on('click', function() {
+                StartDatabase();
+            });
+        });
+        function StartDatabase() {
+            gofetchData = setInterval(fetchData, 1000);
+            $.get('/start_database', function(data) {
+            console.log(data);
+            });
+        }
+        $('#runScriptStopDatabase').on('click', function() {
+            clearInterval(gofetchData);
+            StopDatabase();
+        });
+        function StopDatabase() {
+        $.get('/stop_database', function(data) {
+        console.log(data);
+        });
+        }
+        
+        $('#refreshAllData').on('click', function() {
+            refreshAllData();
+        });
+        function refreshAllData() {
+            fetchData();
+        };
+</script>
+
+<!-- DATA -->
+<script>
+    let gofetchData;
+    var humidity = 10;
+    var temperature = 0;
+    var sound = 10;
+    // function fetchData() {
+    //     $.getJSON('/data', function(data) {
+    //         for (let o = 0; o < data.humidity_data.length; o++) {
+    //             humidity = data.humidity_data[o][0];
+    //         }
+    //         for (let o = 0; o < data.temperature_data.length; o++) {
+    //             temperature = data.temperature_data[o][0];
+    //         }
+    //         for (let o = 0; o < data.sound_data.length; o++) {
+    //             sound = data.sound_data[o][0];
+    //         }
+    //     });
+    //     Graphs();
+    // }
+
+    var humidityVar1 = 1;
+    var humidityVar2 = 1;
+    var humidityVar3 = 1;
+    var humidityVar4 = 1;
+    var humidityVar5 = 1;
+
+    var humidityDate1 = 1;
+    var humidityDate2 = 1;
+    var humidityDate3 = 1;
+    var humidityDate4 = 1;
+    var humidityDate5 = 1;
+
+
+    function fetchData() {
+        $.getJSON('/data', function(data) {
+            humidityVar5 = data.humidity_var[0][0];
+            humidityVar4 = data.humidity_var[1][0];
+            humidityVar3 = data.humidity_var[2][0];
+            humidityVar2 = data.humidity_var[3][0];
+            humidityVar1 = data.humidity_var[4][0];
+
+            humidityDate5 = data.humidity_date[0][0];
+            humidityDate4 = data.humidity_date[1][0];
+            humidityDate3 = data.humidity_date[2][0];
+            humidityDate2 = data.humidity_date[3][0];
+            humidityDate1 = data.humidity_date[4][0];
+        });
+        Graphs();
+        console.log(humidityVar1, humidityVar2, humidityVar3, humidityVar4, humidityVar5);
+        console.log(humidityDate1, humidityDate2, humidityDate3, humidityDate4, humidityDate5);
+        myChart.data.datasets[0].data = [humidityVar1, humidityVar2, humidityVar3, humidityVar4, humidityVar5]
+        myChart.data.labels = [humidityDate1, humidityDate2, humidityDate3, humidityDate4, humidityDate5]
+        myChart.update();
+    }
+</script>
+
+<!-- COUNT -->
+<script>
+    function Graphs() {
+        // Update elements with new values
+        $("#humidity").text(`${humidityVar5}%`);
+        $("#temperature").text(`${temperature}°C`);
+        $("#sound").text(`${sound}dB`);
+    }
+</script>
+
+<!-- GRAPHS -->
+<script>
+    const ctx = document.getElementById('myChart');
+  
+    const myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: [humidityDate1, humidityDate2, humidityDate3, humidityDate4, humidityDate5],
+        datasets: [{
+          label: 'Humidity',
+          data: [humidityVar1, humidityVar2, humidityVar3, humidityVar4, humidityVar5],
+          borderWidth: 1
+        }]
+      },
+options: {
+  scales: {
+    y: {
+      max: 100,
+      beginAtZero: true
+    }
+  },
+  plugins: {
+    tooltip: {
+      callbacks: {
+        label: function(context) {
+          var label = context.dataset.label || '';
+          if (label) {
+            label += ': ';
+          }
+          label += context.parsed.y + '%';
+          return label;
+        }
+      }
+    }
+  }
+}
+    });
+</script>
+
+<style>
+    :root {
+        --main-op-1: rgba(51, 51, 51, 0.75);
+        --radius-cercle: 99px;
+    }
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    body {
+        /* font-family: 'Press Start 2P', cursive; */
+        font-family: 'Mulish', sans-serif;
+
+        background-color: #333333;
+        /* background-color: black; */
+        color: white;
+    }
+    /* main {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2vw;
+        margin: 20px 50px;
+    } */
+
+    h1 {
+        font-family: var(--main-font-1);
+    }
+    h1 span {
+        color: cornflowerblue;
+    }
+
+
+    #navbar li a, h1 {
+        user-select: none;
+        -webkit-user-select: none;
+        -webkit-user-drag: none;
+    }
+    #navbar ul {
+        display: flex;
+        list-style-type: none;
+    }
+    #navbar li {
+        display: inline;
+    }
+    #navbar li a {
+        display: flex;
+        padding: 20px 10px;
+        font-family: var(--main-font-1);
+        text-decoration: none;
+        color: white;
+        background-color: var(--main-op-1);
+        border-radius: var(--radius-cercle);
+    }
+
+    section.lightbox {
+        display: none;
+        padding: 20px;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+    section.lightbox:target {
+        display: flex;
+    }
+
+    .among {
+        margin: 4px;
+    }
+
+    button {
+        background-color: rgb(173, 173, 173);
+        font-family: 'Mulish', sans-serif;
+        font-size: 12px;
+        color: black;
+        padding: 10px 18px;
+        border-radius: 10px;
+        border: 1.5px solid rgb(240 240 240);
+    }
+    button:hover {
+        /* background-color: rgb(163, 163, 163); */
+        filter: brightness(0.8);
+    }
+    button.Top {
+        border-radius: 1px 1px 10px 10px;
+    }
+    button.Left {
+        border-radius: 10px 1px 1px 10px;
+    }
+    button.Right {
+        border-radius: 1px 10px 10px 1px;
+    }
+    button.running {
+        filter: brightness(0.7);
+        cursor: wait;
+    }
+
+    
+#humidity, #temperature, #sound {
+    display: inline-block;
+  font-size: 24px;
+  font-weight: bold;
+  color: #007BFF;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+</style>
