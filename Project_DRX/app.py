@@ -44,11 +44,33 @@ def get_data():
     cursor.execute('SELECT date FROM humidity_data ORDER BY id DESC LIMIT 5')
     humidity_date = cursor.fetchall()
 
+
+
+    cursor.execute('SELECT temperature_val FROM temperature_data ORDER BY id DESC LIMIT 5')
+    temperature_var = cursor.fetchall()
+
+    cursor.execute('SELECT date FROM temperature_data ORDER BY id DESC LIMIT 5')
+    temperature_date = cursor.fetchall()
+
+
+
+    cursor.execute('SELECT sound_val FROM sound_data ORDER BY id DESC LIMIT 5')
+    sound_var = cursor.fetchall()
+
+    cursor.execute('SELECT date FROM sound_data ORDER BY id DESC LIMIT 5')
+    sound_date = cursor.fetchall()
+    
     conn.close()
 
     return jsonify({
         'humidity_var': humidity_var,
         'humidity_date': humidity_date,
+
+        'temperature_var': temperature_var,
+        'temperature_date': temperature_date,
+
+        'sound_var': sound_var,
+        'sound_date': sound_date,
     })
 
 process = None

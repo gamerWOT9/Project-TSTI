@@ -14,6 +14,7 @@
     
 </body>
 <main>
+    <div><h1><span>P</span>ROJECT <span style="color: cornflowerblue;">DRX</span></h1></div>
     <div id="navbar" class="navbar">
         <ul>
             <li><a href="#whome" id="defaultOpen1">HOME</a></li>
@@ -21,7 +22,6 @@
             <li><a href="#winfo">INFO</a></li>
         </ul>
     </div>
-    <div><h1>PROJECT <span>DRX</span></h1></div>
     <div>
         <section id="whome" class="lightbox">
             <div>
@@ -39,8 +39,25 @@
                         <div><div>Sound</div><div id="sound"></div></div>
                     </div>
                 </div>
-                <div style="position: relative; height: 70vh; width: 100%">
-                    <canvas id="myChart"></canvas>
+                <br><br>
+                <div>
+                    <button class="btn1 button-animation1 activebt1 Left" onclick="listView()">
+                        <i class="fa fa-bars"></i> List
+                    </button>
+                    <button class="btn1 button-animation1 Right" onclick="gridView()">
+                        <i class="fa fa-th-large"></i> Grid
+                    </button>
+                </div>
+                <div id="menuChart" class="menuChart">
+                    <div class="wchart" style="position: relative; max-height: 70vh; width: 100%">
+                        <canvas id="chart_humidity"></canvas>
+                    </div>
+                    <div class="wchart" style="position: relative; max-height: 70vh; width: 100%">
+                        <canvas id="chart_temperature"></canvas>
+                    </div>
+                    <div class="wchart" style="position: relative; max-height: 70vh; width: 100%">
+                        <canvas id="chart_sound"></canvas>
+                    </div>
                 </div>
             </div>
         </section>
@@ -65,6 +82,14 @@
     $(document).ready(function() {
         refreshAllData();
     });
+
+    $(window).on('load', function() {
+    setTimeout(function() {
+        // Code to run 500ms after the page has completely loaded
+        refreshAllData();
+        console.log("Good morning");
+    }, 500);
+    });
 </script>
 
 <!-- BUTTON -->
@@ -83,6 +108,7 @@
         $('#runScriptStopDatabase').on('click', function() {
             clearInterval(gofetchData);
             StopDatabase();
+            removeRunning();
         });
         function StopDatabase() {
         $.get('/stop_database', function(data) {
@@ -96,6 +122,48 @@
         function refreshAllData() {
             fetchData();
         };
+</script>
+<!-- STYLE -->
+<script>
+    $("#runScriptStartDatabase").on("click", function() {
+        var button = $(this);
+        if (!button.hasClass("running")) {
+        button.addClass("running");
+        }
+    });
+    function removeRunning() {
+        var button = $("#runScriptStartDatabase");
+        if (button.hasClass("running")) {
+            button.removeClass("running");
+        }
+    }
+
+
+    // OPTION GRID
+    // Get the element with id="myMenu"
+    var elements = $("#menuChart");
+
+    // List View
+    function listView() {
+    elements.removeClass("grid1");
+    }
+
+    // Grid View
+    function gridView() {
+    elements.addClass("grid1");
+    }
+
+    /* Optional: Add active class to the current button (highlight it) */
+    var container1 = $("#btnContainer1");
+    var btns1 = container1.find(".btn1");
+
+    btns1.each(function() {
+    $(this).on("click", function() {
+        var current = $(".activebt1");
+        current.removeClass("activebt1");
+        $(this).addClass("activebt1");
+    });
+    });
 </script>
 
 <!-- DATA -->
@@ -131,6 +199,31 @@
     var humidityDate4 = 1;
     var humidityDate5 = 1;
 
+    var temperatureVar1 = 1;
+    var temperatureVar2 = 1;
+    var temperatureVar3 = 1;
+    var temperatureVar4 = 1;
+    var temperatureVar5 = 1;
+
+    var temperatureDate1 = 1;
+    var temperatureDate2 = 1;
+    var temperatureDate3 = 1;
+    var temperatureDate4 = 1;
+    var temperatureDate5 = 1;
+
+    var soundVar1 = 1;
+    var soundVar2 = 1;
+    var soundVar3 = 1;
+    var soundVar4 = 1;
+    var soundVar5 = 1;
+
+    var soundDate1 = 1;
+    var soundDate2 = 1;
+    var soundDate3 = 1;
+    var soundDate4 = 1;
+    var soundDate5 = 1;
+
+
 
     function fetchData() {
         $.getJSON('/data', function(data) {
@@ -145,13 +238,48 @@
             humidityDate3 = data.humidity_date[2][0];
             humidityDate2 = data.humidity_date[3][0];
             humidityDate1 = data.humidity_date[4][0];
+
+
+            temperatureVar5 = data.temperature_var[0][0];
+            temperatureVar4 = data.temperature_var[1][0];
+            temperatureVar3 = data.temperature_var[2][0];
+            temperatureVar2 = data.temperature_var[3][0];
+            temperatureVar1 = data.temperature_var[4][0];
+
+            temperatureDate5 = data.temperature_date[0][0];
+            temperatureDate4 = data.temperature_date[1][0];
+            temperatureDate3 = data.temperature_date[2][0];
+            temperatureDate2 = data.temperature_date[3][0];
+            temperatureDate1 = data.temperature_date[4][0];
+
+
+            soundVar5 = data.sound_var[0][0];
+            soundVar4 = data.sound_var[1][0];
+            soundVar3 = data.sound_var[2][0];
+            soundVar2 = data.sound_var[3][0];
+            soundVar1 = data.sound_var[4][0];
+
+            soundDate5 = data.sound_date[0][0];
+            soundDate4 = data.sound_date[1][0];
+            soundDate3 = data.sound_date[2][0];
+            soundDate2 = data.sound_date[3][0];
+            soundDate1 = data.sound_date[4][0];
+
         });
         Graphs();
-        console.log(humidityVar1, humidityVar2, humidityVar3, humidityVar4, humidityVar5);
-        console.log(humidityDate1, humidityDate2, humidityDate3, humidityDate4, humidityDate5);
-        myChart.data.datasets[0].data = [humidityVar1, humidityVar2, humidityVar3, humidityVar4, humidityVar5]
-        myChart.data.labels = [humidityDate1, humidityDate2, humidityDate3, humidityDate4, humidityDate5]
-        myChart.update();
+        console.log(`LAST DATA => 
+        Humidity: ${humidityVar5}% ${humidityDate5} 
+        Temperature: ${temperatureVar5}°C ${temperatureDate5} 
+        Sound: ${soundVar5}dB ${soundDate5}`);
+        chart_humidity.data.datasets[0].data = [humidityVar1, humidityVar2, humidityVar3, humidityVar4, humidityVar5]
+        chart_humidity.data.labels = [humidityDate1, humidityDate2, humidityDate3, humidityDate4, humidityDate5]
+        chart_temperature.data.datasets[0].data = [temperatureVar1, temperatureVar2, temperatureVar3, temperatureVar4, temperatureVar5]
+        chart_temperature.data.labels = [temperatureDate1, temperatureDate2, temperatureDate3, temperatureDate4, temperatureDate5]
+        chart_sound.data.datasets[0].data = [soundVar1, soundVar2, soundVar3, soundVar4, soundVar5]
+        chart_sound.data.labels = [soundDate1, soundDate2, soundDate3, soundDate4, soundDate5]
+        chart_humidity.update();
+        chart_temperature.update();
+        chart_sound.update();
     }
 </script>
 
@@ -160,25 +288,27 @@
     function Graphs() {
         // Update elements with new values
         $("#humidity").text(`${humidityVar5}%`);
-        $("#temperature").text(`${temperature}°C`);
-        $("#sound").text(`${sound}dB`);
+        $("#temperature").text(`${temperatureVar5}°C`);
+        $("#sound").text(`${soundVar5}dB`);
     }
 </script>
 
 <!-- GRAPHS -->
 <script>
-    const ctx = document.getElementById('myChart');
-  
-    const myChart = new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: [humidityDate1, humidityDate2, humidityDate3, humidityDate4, humidityDate5],
-        datasets: [{
-          label: 'Humidity',
-          data: [humidityVar1, humidityVar2, humidityVar3, humidityVar4, humidityVar5],
-          borderWidth: 1
-        }]
-      },
+// HUMIDITY
+const ctx_humidity = document.getElementById('chart_humidity');
+
+const chart_humidity = new Chart(ctx_humidity, {
+type: 'line',
+data: {
+labels: [humidityDate1, humidityDate2, humidityDate3, humidityDate4, humidityDate5],
+datasets: [{
+label: 'Humidity',
+data: [humidityVar1, humidityVar2, humidityVar3, humidityVar4, humidityVar5],
+borderWidth: 2,
+borderColor: "#007BFF",
+}]
+},
 options: {
   scales: {
     y: {
@@ -187,6 +317,13 @@ options: {
     }
   },
   plugins: {
+    legend: {
+        labels: {
+            font: {
+                size: 18,
+            },
+        },
+    },
     tooltip: {
       callbacks: {
         label: function(context) {
@@ -201,7 +338,96 @@ options: {
     }
   }
 }
-    });
+});
+
+// TEMPERATURE
+const ctx_temperature = document.getElementById('chart_temperature');
+
+const chart_temperature = new Chart(ctx_temperature, {
+type: 'line',
+data: {
+labels: [temperatureDate1, temperatureDate2, temperatureDate3, temperatureDate4, temperatureDate5],
+datasets: [{
+label: 'Temperature',
+data: [temperatureVar1, temperatureVar2, temperatureVar3, temperatureVar4, temperatureVar5],
+borderWidth: 2,
+borderColor: "#eb4034",
+}]
+},
+options: {
+  scales: {
+    y: {
+      beginAtZero: true
+    }
+  },
+  plugins: {
+    legend: {
+        labels: {
+            font: {
+                size: 18,
+            },
+        },
+    },
+    tooltip: {
+      callbacks: {
+        label: function(context) {
+          var label = context.dataset.label || '';
+          if (label) {
+            label += ': ';
+          }
+          label += context.parsed.y + '°C';
+          return label;
+        }
+      }
+    }
+  }
+}
+});
+
+
+// SOUND
+const ctx_sound = document.getElementById('chart_sound');
+
+const chart_sound = new Chart(ctx_sound, {
+type: 'line',
+data: {
+labels: [soundDate1, soundDate2, soundDate3, soundDate4, soundDate5],
+datasets: [{
+label: 'Sound',
+data: [soundVar1, soundVar2, soundVar3, soundVar4, soundVar5],
+borderWidth: 2,
+borderColor: "#008000",
+}]
+},
+options: {
+  scales: {
+    y: {
+      beginAtZero: true
+    }
+  },
+  plugins: {
+    legend: {
+        labels: {
+            font: {
+                size: 18,
+            },
+        },
+    },
+    tooltip: {
+      callbacks: {
+        label: function(context) {
+          var label = context.dataset.label || '';
+          if (label) {
+            label += ': ';
+          }
+          label += context.parsed.y + 'dB';
+          return label;
+        }
+      }
+    }
+  }
+}
+});
 </script>
 
 <style>
@@ -212,6 +438,7 @@ options: {
     * {
         margin: 0;
         padding: 0;
+        scroll-behavior: smooth;
     }
     body {
         /* font-family: 'Press Start 2P', cursive; */
@@ -230,12 +457,21 @@ options: {
 
     h1 {
         font-family: var(--main-font-1);
+        font-size: calc(5vw);
+        text-align: center;
     }
     h1 span {
-        color: cornflowerblue;
+        font-size: calc(7vw);
     }
 
 
+    #navbar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        margin-bottom: 50px;
+    }
     #navbar li a, h1 {
         user-select: none;
         -webkit-user-select: none;
@@ -243,29 +479,52 @@ options: {
     }
     #navbar ul {
         display: flex;
+        gap: 11px;
+        overflow: hidden;
         list-style-type: none;
+        /* background-color: black; */
+        border-radius: 50px;
     }
     #navbar li {
         display: inline;
     }
     #navbar li a {
         display: flex;
-        padding: 20px 10px;
+        padding: 10px 21px;
         font-family: var(--main-font-1);
         text-decoration: none;
         color: white;
-        background-color: var(--main-op-1);
-        border-radius: var(--radius-cercle);
+        background-color: rgba(0, 0, 0, 0.5);
+        border-radius: 10px;
+    }
+    #navbar li a:hover {
+        color: #007BFF;
     }
 
     section.lightbox {
         display: none;
-        padding: 20px;
+        width: 75%;
+        margin: auto;
+        padding: 40px;
+        border-radius: 20px;
         background-color: rgba(0, 0, 0, 0.5);
     }
     section.lightbox:target {
-        display: flex;
+        display: block;
     }
+
+.menuChart {
+    max-width: 100%;
+    overflow: auto;
+    display: grid; gap: 5.25rem;
+    grid-template-columns: repeat(1, 1fr);
+}
+.menuChart.grid1 {
+  grid-template-columns: repeat(3, 1fr);
+}
+.wchart {
+    background-color: rgba(0, 0, 0, 0.5);
+}
 
     .among {
         margin: 4px;
@@ -284,6 +543,12 @@ options: {
         /* background-color: rgb(163, 163, 163); */
         filter: brightness(0.8);
     }
+    button {
+        transition: 100ms;
+    }
+    button:not(.running):active {
+        transform: scale(0.9);
+    }
     button.Top {
         border-radius: 1px 1px 10px 10px;
     }
@@ -298,15 +563,24 @@ options: {
         cursor: wait;
     }
 
+
     
 #humidity, #temperature, #sound {
     display: inline-block;
-  font-size: 24px;
-  font-weight: bold;
-  color: #007BFF;
-  margin-bottom: 10px;
-  padding: 10px;
-  border-radius: 5px;
-  background-color: rgba(0, 0, 0, 0.75);
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.75);
+}
+#humidity {
+    color: #007BFF;
+}
+#temperature {
+    color: #eb4034;
+}
+#sound {
+    color: #008000;
 }
 </style>
