@@ -64,11 +64,28 @@
         <section id="wtable" class="lightbox">
             <div>
                 <h2>Table</h2>
+                <div id="hiDatacenter" class="hiContent" style="background: none; padding: 0;">
+                    <h3>Data from: <!-- <span></span> -->
+                        <select name="select-table-name" id="table-nameselect">
+                            <option value="humidity_data">humidity_data</option>
+                            <option value="temperature_data">temperature_data</option>
+                            <option value="sound_data">sound_data</option>
+                        </select>
+                    </h3>
+                    <table id="TableDatacenter" class="customers">
+                        <tr>
+                        <th>Time</th>
+                        <th>Data</th>
+                        </tr>
+                    </table>
+                    <div class="among"></div>
+                </div>
             </div>
         </section>
         <section id="winfo" class="lightbox">
             <div>
                 <h2>Info</h2>
+                <p>Hola, mi amigo</p>
             </div>
         </section>
     </div>
@@ -82,6 +99,11 @@
     $(document).ready(function() {
         refreshAllData();
     });
+    function refreshAllData() {
+        fetchData();
+        callDatacenterHello();
+    };
+
 
     $(window).on('load', function() {
     setTimeout(function() {
@@ -119,9 +141,6 @@
         $('#refreshAllData').on('click', function() {
             refreshAllData();
         });
-        function refreshAllData() {
-            fetchData();
-        };
 </script>
 <!-- STYLE -->
 <script>
@@ -583,4 +602,80 @@ options: {
 #sound {
     color: #008000;
 }
+</style>
+
+<!-- TABLE -->
+<script>
+let tableName = 'humidity_data';
+let dataunit = '%';
+function callDatacenter(tableName) {
+    $.getJSON('/datacenter', {table_name: tableName}, function(data) {
+        let table = $('#TableDatacenter');
+        table.find('tr:gt(0)').remove(); // Remove all rows except the header
+
+        // Sort the data based on the second column (Time) in ascending order
+        data.sort(function(a, b) {
+            return a[2] - b[2];
+        });
+
+        for (let i = 0; i < data.length; i++) {
+            dataTime = data[i][2];
+            dataData = data[i][1];
+            let newRow = $('<tr></tr>').append('<td>' + dataTime + '</td>').append('<td>' + dataData + dataunit + '</td>');
+            table.append(newRow);
+        }
+    });
+}
+$('#table-nameselect').on('change', function() {
+    tableName = $(this).val();
+    callDatacenterHello();
+});
+function callDatacenterHello() {
+    if (tableName === 'humidity_data') {
+        dataunit = '%';
+    } else if (tableName === 'temperature_data') {
+        dataunit = '°C';
+    } else if (tableName === 'sound_data') {
+        dataunit = ' dB';
+    }
+    callDatacenter(tableName);
+}
+</script>
+<style>
+select {
+    font-size: 15px;
+    font-family: 'Mulish', sans-serif;
+    border: none;
+    background-color: rgb(173, 173, 173);
+    padding: 3px 12px;
+    border-radius: 50px;
+}
+select:hover {
+    filter: brightness(0.8);
+}
+
+
+.customers {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.customers td, .customers th {
+    font-weight: normal;
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.customers tr:nth-child(even){background-color: var(--color-bkg-1);}
+
+.customers tr:hover {filter: brightness(0.7);}
+
+.customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: white;
+    color: black;
+}
+
 </style>

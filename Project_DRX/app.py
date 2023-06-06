@@ -73,6 +73,23 @@ def get_data():
         'sound_date': sound_date,
     })
 
+
+DATABASE = 'data/arduino_data.db'
+def get_db():
+    db = getattr(g, '_database', None)
+    if db is None:
+        db = g._database = sqlite3.connect(DATABASE)
+    return db
+@app.route('/datacenter', methods=['GET'])
+def datacenter():
+    table_name = request.args.get('table_name', 'default_table') # Default to 'default_table' if no table name is specified
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute(f"SELECT * FROM {table_name}")
+    data = cursor.fetchall()
+    return jsonify(data)
+
+
 process = None
 @app.route('/start_database', methods=['GET'])
 def start_database():
