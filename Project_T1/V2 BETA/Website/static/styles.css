@@ -1,0 +1,283 @@
+:root {
+    --color-bkg-1: rgba(0, 0, 0, 0.25);
+    /* rgba(0, 0, 0, 0.25) */
+    --color-main-1: white;
+    /* rgb(227, 117, 0) */
+    --border-radius-1: 20px;
+}
+* {
+    margin: 0;
+}
+body {
+    /* font-family: 'Press Start 2P', cursive; */
+    font-family: 'Mulish', sans-serif;
+
+    background-color: #333333;
+    /* background-color: black; */
+    color: white;
+}
+main.body-1 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2vw;
+    margin: 20px 50px;
+}
+/* main.body-1 {
+    background-image: url(img/checkerboard-white.jpg);
+} */
+/* section.section-1 {
+    width: 100%;
+    height: 700px;
+    background-image: url(img/j-a-miller-s-2021-11-06-23-59-32.jpg);
+    background-size: cover;
+} */
+section.section-2 {
+    display: flex;
+    justify-content: center;
+}
+.sub-section-2 {
+    display: flex;
+    gap: 20px;
+}
+
+h2, h3 {
+    font-weight: normal;
+    /* margin-bottom: 10px; */
+}
+
+
+button {
+    transition: 100ms;
+}
+button:not(.running):active {
+    transform: scale(0.9);
+}
+input[type="text"] {
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+}
+input[type="text"].Top {
+    margin: 2.5px 0;
+    border-radius: 10px 10px 0 0;
+}
+input[type="text"].Bottom {
+    margin: 0 0 7px 0;
+    border-radius: 0 0 10px 10px;
+}
+input[type="text"].Left {
+    margin: 0 4px 0 0;
+    border-radius: 10px 1px 1px 10px;
+}
+input[type="number"] {
+    max-width: 30px;
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: none;
+}
+input[type="number"].Mid {
+    margin: 0 4px 0 0;
+    border-radius: 1px;
+}
+select {
+    font-size: 15px;
+    font-family: 'Mulish', sans-serif;
+    border: none;
+    background-color: rgb(173, 173, 173);
+    padding: 3px 12px;
+    border-radius: 50px;
+}
+select:hover {
+    filter: brightness(0.8);
+}
+
+div.background-color {
+    display: none;
+    background: rgb(0,0,0);
+    background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(217,217,217,0) 50%);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+div.background-image {
+    /* display: none; */
+    background-image: url(static/img/Vector.png);
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    background-attachment: fixed;
+    background-size: cover;
+    position: fixed;
+}
+.resp-1 {
+    max-height: 100%;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+
+    padding: 20px 40px;
+    border-radius: var(--border-radius-1);
+    background-color: var(--color-bkg-1);
+}
+.among {
+    margin: 4px;
+}
+.content1 {
+    background-color: var(--color-bkg-1);
+    /* backdrop-filter: blur(2px); */
+    /* margin: 20px 50px; */
+    padding: 20px 40px;
+    height: fit-content;
+    
+    border-radius: var(--border-radius-1);
+    /* border: 1.5px solid #031536; */
+    /* box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px; */
+}
+.content1 .showDiv {
+    font-family: 'Mulish', sans-serif;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.25);
+
+    display: flex;
+    align-items: center;
+
+    font-size: 15px;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.1s;
+    border-radius: 99px;
+    border: 1px solid rgba(209, 241, 255, 0);
+}
+.content1 .showDiv:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.content1 .showDiv img {
+    display: inline-flex;
+    height: 9px;
+    width: 12.5px;
+    margin-left: 16px;
+
+    transition: 500ms;
+    transform: rotate(180deg);
+}
+.content1 .showDiv.in img {
+    transform: rotate(0deg);
+}
+.hiContent {
+    margin: 20px 0;
+    padding: 20px 40px;
+    border-radius: var(--border-radius-1);
+    background-color: var(--color-bkg-1);
+}
+button {
+    background-color: rgb(173, 173, 173);
+    font-family: 'Mulish', sans-serif;
+    font-size: 12px;
+    color: black;
+    padding: 10px 18px;
+    border-radius: 10px;
+    border: 1.5px solid rgb(240 240 240);
+}
+button:hover {
+    /* background-color: rgb(163, 163, 163); */
+    filter: brightness(0.8);
+}
+button.Top {
+    border-radius: 1px 1px 10px 10px;
+}
+button.Left {
+    border-radius: 10px 1px 1px 10px;
+}
+button.Right {
+    border-radius: 1px 10px 10px 1px;
+}
+button.running {
+    filter: brightness(0.7);
+    cursor: wait;
+}
+
+
+#hiDatacenter h3 {
+    padding: 12px;
+    margin-bottom: 3px;
+    color: black;
+    background-color: white;
+    border-radius: 10px 10px 1px 1px;
+}
+#hiDatacenter h3 span {
+    font-weight: bold;
+}
+
+
+div#hiRanking {
+    font-family: 'Racing Sans One', cursive;
+    font-size: 20px;
+}
+div#hiRanking p#first {
+    color: gold;
+}
+div#hiRanking p#second {
+    color: silver;
+}
+.part-Ranking span {
+    font-size: 55px;
+}
+
+
+.pageh1 {
+    padding: 0 0 20px 50px;
+}
+.pageh1 h1 {
+    padding: 50px 0 0 0;
+    color: var(--color-main-1);
+    font-size: calc(5vw);
+    /* font-family: 'Press Start 2P', cursive; */
+    text-align: center;
+    font-family: 'Racing Sans One', cursive;
+}
+.pageh1 h1 span {
+    font-size: calc(7vw);
+}
+
+.customers {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.customers td, .customers th {
+    font-weight: normal;
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.customers tr:nth-child(even){background-color: var(--color-bkg-1);}
+
+.customers tr:hover {filter: brightness(0.7);}
+
+.customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: white;
+    color: black;
+}
+.customers tr.blue td {
+    color: cornflowerblue;
+}
+.customers tr.red td {
+    color: red;
+}
+
+.anime_fly-right {
+    animation: fly-right 3s 1.5s alternate infinite ease-in-out;
+}
+@keyframes fly-right {
+    0% {
+        transform: translate(0%,-10px);
+    }
+
+    100% {
+        transform: translate(0%,10px);
+    }
+}
