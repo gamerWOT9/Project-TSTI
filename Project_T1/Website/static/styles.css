@@ -101,7 +101,7 @@ div.background-color {
 }
 div.background-image {
     /* display: none; */
-    background-image: url(static/img/Vector.png);
+    background-image: url(img/Vector.png);
     z-index: -1;
     width: 100%;
     height: 100%;

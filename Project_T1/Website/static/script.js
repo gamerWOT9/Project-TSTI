@@ -332,11 +332,6 @@ $.ajax({
         });
     
     
-        $(".showDiv").click(function () {
-            var divId = $(this).data("div");
-            $(this).toggleClass("in");
-            $("#" + divId).toggle();
-        });
     
         $("#runScriptStartDatabase").on("click", function() {
             var button = $(this);
