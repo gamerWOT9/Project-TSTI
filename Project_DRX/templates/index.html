@@ -3,7 +3,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project DRX - Admin page</title>
+    <title>PProject DRX - Admin page</title>
+    <link rel="stylesheet" href="static/styles.css">
+    <script src="static/script.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,671 +13,83 @@
     <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@500&display=swap" rel="stylesheet">
 </head>
 <body>
+    <main>
+        <div><h1><span>P</span>ROJECT <span style="color: cornflowerblue;">DRX</span></h1></div>
+        <div id="navbar" class="navbar">
+            <ul>
+                <li><a href="#whome" id="defaultOpen1">HOME</a></li>
+                <li><a href="#wtable">TABLE</a></li>
+                <li><a href="#winfo">INFO</a></li>
+            </ul>
+        </div>
+        <div>
+            <section id="whome" class="lightbox">
+                <div>
+                    <h2>Home</h2>
+                    <div>
+                        <h3>Settings: <span></span></h3>
+                        <button id="refreshAllData">Refresh all data</button><br><div class="among"></div>
+                        <button id="runScriptStartDatabase" class="Left" style="color: rgb(0, 93, 65); background-color: rgb(110, 250, 160);">Start Database</button>
+                        <button id="runScriptStopDatabase" class="Right" style="color: rgb(87, 0, 0); background-color: rgb(245, 113, 113);">Stop Database</button>
+                        <br><br>
+    
+                        <div style="display: flex; gap: 35px;">
+                            <div><div>Humidity</div><div id="humidity"></div></div>
+                            <div><div>Temperature</div><div id="temperature"></div></div>
+                            <div><div>Sound</div><div id="sound"></div></div>
+                        </div>
+                    </div>
+                    <br><br>
+                    <div>
+                        <button class="btn1 button-animation1 activebt1 Left" onclick="listView()">
+                            <i class="fa fa-bars"></i> List
+                        </button>
+                        <button class="btn1 button-animation1 Right" onclick="gridView()">
+                            <i class="fa fa-th-large"></i> Grid
+                        </button>
+                    </div>
+                    <div id="menuChart" class="menuChart">
+                        <div class="wchart" style="position: relative; max-height: 70vh; width: 100%">
+                            <canvas id="chart_humidity"></canvas>
+                        </div>
+                        <div class="wchart" style="position: relative; max-height: 70vh; width: 100%">
+                            <canvas id="chart_temperature"></canvas>
+                        </div>
+                        <div class="wchart" style="position: relative; max-height: 70vh; width: 100%">
+                            <canvas id="chart_sound"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="wtable" class="lightbox">
+                <div>
+                    <h2>Table</h2>
+                    <div id="hiDatacenter" class="hiContent" style="background: none; padding: 0;">
+                        <h3>Data from: <!-- <span></span> -->
+                            <select name="select-table-name" id="table-nameselect">
+                                <option value="humidity_data">humidity_data</option>
+                                <option value="temperature_data">temperature_data</option>
+                                <option value="sound_data">sound_data</option>
+                            </select>
+                        </h3>
+                        <table id="TableDatacenter" class="customers">
+                            <tr>
+                            <th>Time</th>
+                            <th>Data</th>
+                            </tr>
+                        </table>
+                        <div class="among"></div>
+                    </div>
+                </div>
+            </section>
+            <section id="winfo" class="lightbox">
+                <div>
+                    <h2>Info</h2>
+                    <p>Hola, mi amigo</p>
+                </div>
+            </section>
+        </div>
+    </main>
     
 </body>
-<main>
-    <div><h1><span>P</span>ROJECT <span style="color: cornflowerblue;">DRX</span></h1></div>
-    <div id="navbar" class="navbar">
-        <ul>
-            <li><a href="#whome" id="defaultOpen1">HOME</a></li>
-            <li><a href="#wtable">TABLE</a></li>
-            <li><a href="#winfo">INFO</a></li>
-        </ul>
-    </div>
-    <div>
-        <section id="whome" class="lightbox">
-            <div>
-                <h2>Home</h2>
-                <div>
-                    <h3>Settings: <span></span></h3>
-                    <button id="refreshAllData">Refresh all data</button><br><div class="among"></div>
-                    <button id="runScriptStartDatabase" class="Left" style="color: rgb(0, 93, 65); background-color: rgb(110, 250, 160);">Start Database</button>
-                    <button id="runScriptStopDatabase" class="Right" style="color: rgb(87, 0, 0); background-color: rgb(245, 113, 113);">Stop Database</button>
-                    <br><br>
-
-                    <div style="display: flex; gap: 35px;">
-                        <div><div>Humidity</div><div id="humidity"></div></div>
-                        <div><div>Temperature</div><div id="temperature"></div></div>
-                        <div><div>Sound</div><div id="sound"></div></div>
-                    </div>
-                </div>
-                <br><br>
-                <div>
-                    <button class="btn1 button-animation1 activebt1 Left" onclick="listView()">
-                        <i class="fa fa-bars"></i> List
-                    </button>
-                    <button class="btn1 button-animation1 Right" onclick="gridView()">
-                        <i class="fa fa-th-large"></i> Grid
-                    </button>
-                </div>
-                <div id="menuChart" class="menuChart">
-                    <div class="wchart" style="position: relative; max-height: 70vh; width: 100%">
-                        <canvas id="chart_humidity"></canvas>
-                    </div>
-                    <div class="wchart" style="position: relative; max-height: 70vh; width: 100%">
-                        <canvas id="chart_temperature"></canvas>
-                    </div>
-                    <div class="wchart" style="position: relative; max-height: 70vh; width: 100%">
-                        <canvas id="chart_sound"></canvas>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section id="wtable" class="lightbox">
-            <div>
-                <h2>Table</h2>
-                <div id="hiDatacenter" class="hiContent" style="background: none; padding: 0;">
-                    <h3>Data from: <!-- <span></span> -->
-                        <select name="select-table-name" id="table-nameselect">
-                            <option value="humidity_data">humidity_data</option>
-                            <option value="temperature_data">temperature_data</option>
-                            <option value="sound_data">sound_data</option>
-                        </select>
-                    </h3>
-                    <table id="TableDatacenter" class="customers">
-                        <tr>
-                        <th>Time</th>
-                        <th>Data</th>
-                        </tr>
-                    </table>
-                    <div class="among"></div>
-                </div>
-            </div>
-        </section>
-        <section id="winfo" class="lightbox">
-            <div>
-                <h2>Info</h2>
-                <p>Hola, mi amigo</p>
-            </div>
-        </section>
-    </div>
-</main>
 </html>
-
-<!-- READY -->
-<script>
-    $('a#defaultOpen1')[0].click();
-
-    $(document).ready(function() {
-        refreshAllData();
-    });
-    function refreshAllData() {
-        fetchData();
-        callDatacenterHello();
-    };
-
-
-    $(window).on('load', function() {
-    setTimeout(function() {
-        // Code to run 500ms after the page has completely loaded
-        refreshAllData();
-        console.log("Good morning");
-    }, 500);
-    });
-</script>
-
-<!-- BUTTON -->
-<script>
-        $(document).ready(function() {
-            $('#runScriptStartDatabase').on('click', function() {
-                StartDatabase();
-            });
-        });
-        function StartDatabase() {
-            gofetchData = setInterval(fetchData, 1000);
-            $.get('/start_database', function(data) {
-            console.log(data);
-            });
-        }
-        $('#runScriptStopDatabase').on('click', function() {
-            clearInterval(gofetchData);
-            StopDatabase();
-            removeRunning();
-        });
-        function StopDatabase() {
-        $.get('/stop_database', function(data) {
-        console.log(data);
-        });
-        }
-        
-        $('#refreshAllData').on('click', function() {
-            refreshAllData();
-        });
-</script>
-<!-- STYLE -->
-<script>
-    $("#runScriptStartDatabase").on("click", function() {
-        var button = $(this);
-        if (!button.hasClass("running")) {
-        button.addClass("running");
-        }
-    });
-    function removeRunning() {
-        var button = $("#runScriptStartDatabase");
-        if (button.hasClass("running")) {
-            button.removeClass("running");
-        }
-    }
-
-
-    // OPTION GRID
-    // Get the element with id="myMenu"
-    var elements = $("#menuChart");
-
-    // List View
-    function listView() {
-    elements.removeClass("grid1");
-    }
-
-    // Grid View
-    function gridView() {
-    elements.addClass("grid1");
-    }
-
-    /* Optional: Add active class to the current button (highlight it) */
-    var container1 = $("#btnContainer1");
-    var btns1 = container1.find(".btn1");
-
-    btns1.each(function() {
-    $(this).on("click", function() {
-        var current = $(".activebt1");
-        current.removeClass("activebt1");
-        $(this).addClass("activebt1");
-    });
-    });
-</script>
-
-<!-- DATA -->
-<script>
-    let gofetchData;
-    var humidity = 10;
-    var temperature = 0;
-    var sound = 10;
-    // function fetchData() {
-    //     $.getJSON('/data', function(data) {
-    //         for (let o = 0; o < data.humidity_data.length; o++) {
-    //             humidity = data.humidity_data[o][0];
-    //         }
-    //         for (let o = 0; o < data.temperature_data.length; o++) {
-    //             temperature = data.temperature_data[o][0];
-    //         }
-    //         for (let o = 0; o < data.sound_data.length; o++) {
-    //             sound = data.sound_data[o][0];
-    //         }
-    //     });
-    //     Graphs();
-    // }
-
-    var humidityVar1 = "--";
-    var humidityVar2 = "--";
-    var humidityVar3 = "--";
-    var humidityVar4 = "--";
-    var humidityVar5 = "--";
-
-    var humidityDate1 = "----/--/-- --:--:--";
-    var humidityDate2 = "----/--/-- --:--:--";
-    var humidityDate3 = "----/--/-- --:--:--";
-    var humidityDate4 = "----/--/-- --:--:--";
-    var humidityDate5 = "----/--/-- --:--:--";
-
-    var temperatureVar1 = "--";
-    var temperatureVar2 = "--";
-    var temperatureVar3 = "--";
-    var temperatureVar4 = "--";
-    var temperatureVar5 = "--";
-
-    var temperatureDate1 = "----/--/-- --:--:--";
-    var temperatureDate2 = "----/--/-- --:--:--";
-    var temperatureDate3 = "----/--/-- --:--:--";
-    var temperatureDate4 = "----/--/-- --:--:--";
-    var temperatureDate5 = "----/--/-- --:--:--";
-
-    var soundVar1 = "----";
-    var soundVar2 = "----";
-    var soundVar3 = "----";
-    var soundVar4 = "----";
-    var soundVar5 = "----";
-
-    var soundDate1 = "----/--/-- --:--:--";
-    var soundDate2 = "----/--/-- --:--:--";
-    var soundDate3 = "----/--/-- --:--:--";
-    var soundDate4 = "----/--/-- --:--:--";
-    var soundDate5 = "----/--/-- --:--:--";
-
-
-
-    function fetchData() {
-        $.getJSON('/data', function(data) {
-            humidityVar5 = data.humidity_var[0][0];
-            humidityVar4 = data.humidity_var[1][0];
-            humidityVar3 = data.humidity_var[2][0];
-            humidityVar2 = data.humidity_var[3][0];
-            humidityVar1 = data.humidity_var[4][0];
-
-            humidityDate5 = data.humidity_date[0][0];
-            humidityDate4 = data.humidity_date[1][0];
-            humidityDate3 = data.humidity_date[2][0];
-            humidityDate2 = data.humidity_date[3][0];
-            humidityDate1 = data.humidity_date[4][0];
-
-
-            temperatureVar5 = data.temperature_var[0][0];
-            temperatureVar4 = data.temperature_var[1][0];
-            temperatureVar3 = data.temperature_var[2][0];
-            temperatureVar2 = data.temperature_var[3][0];
-            temperatureVar1 = data.temperature_var[4][0];
-
-            temperatureDate5 = data.temperature_date[0][0];
-            temperatureDate4 = data.temperature_date[1][0];
-            temperatureDate3 = data.temperature_date[2][0];
-            temperatureDate2 = data.temperature_date[3][0];
-            temperatureDate1 = data.temperature_date[4][0];
-
-
-            soundVar5 = data.sound_var[0][0];
-            soundVar4 = data.sound_var[1][0];
-            soundVar3 = data.sound_var[2][0];
-            soundVar2 = data.sound_var[3][0];
-            soundVar1 = data.sound_var[4][0];
-
-            soundDate5 = data.sound_date[0][0];
-            soundDate4 = data.sound_date[1][0];
-            soundDate3 = data.sound_date[2][0];
-            soundDate2 = data.sound_date[3][0];
-            soundDate1 = data.sound_date[4][0];
-
-        });
-        Graphs();
-        console.log(`LAST DATA => 
-        Humidity: ${humidityVar5}% ${humidityDate5} 
-        Temperature: ${temperatureVar5}°C ${temperatureDate5} 
-        Sound: ${soundVar5}dB ${soundDate5}`);
-        chart_humidity.data.datasets[0].data = [humidityVar1, humidityVar2, humidityVar3, humidityVar4, humidityVar5]
-        chart_humidity.data.labels = [humidityDate1, humidityDate2, humidityDate3, humidityDate4, humidityDate5]
-        chart_temperature.data.datasets[0].data = [temperatureVar1, temperatureVar2, temperatureVar3, temperatureVar4, temperatureVar5]
-        chart_temperature.data.labels = [temperatureDate1, temperatureDate2, temperatureDate3, temperatureDate4, temperatureDate5]
-        chart_sound.data.datasets[0].data = [soundVar1, soundVar2, soundVar3, soundVar4, soundVar5]
-        chart_sound.data.labels = [soundDate1, soundDate2, soundDate3, soundDate4, soundDate5]
-        chart_humidity.update();
-        chart_temperature.update();
-        chart_sound.update();
-    }
-</script>
-
-<!-- COUNT -->
-<script>
-    function Graphs() {
-        // Update elements with new values
-        $("#humidity").text(`${humidityVar5}%`);
-        $("#temperature").text(`${temperatureVar5}°C`);
-        $("#sound").text(`${soundVar5}dB`);
-    }
-</script>
-
-<!-- GRAPHS -->
-<script>
-// HUMIDITY
-const ctx_humidity = document.getElementById('chart_humidity');
-
-const chart_humidity = new Chart(ctx_humidity, {
-type: 'line',
-data: {
-labels: [humidityDate1, humidityDate2, humidityDate3, humidityDate4, humidityDate5],
-datasets: [{
-label: 'Humidity',
-data: [humidityVar1, humidityVar2, humidityVar3, humidityVar4, humidityVar5],
-borderWidth: 2,
-borderColor: "#007BFF",
-}]
-},
-options: {
-  scales: {
-    y: {
-      max: 100,
-      beginAtZero: true
-    }
-  },
-  plugins: {
-    legend: {
-        labels: {
-            font: {
-                size: 18,
-            },
-        },
-    },
-    tooltip: {
-      callbacks: {
-        label: function(context) {
-          var label = context.dataset.label || '';
-          if (label) {
-            label += ': ';
-          }
-          label += context.parsed.y + '%';
-          return label;
-        }
-      }
-    }
-  }
-}
-});
-
-// TEMPERATURE
-const ctx_temperature = document.getElementById('chart_temperature');
-
-const chart_temperature = new Chart(ctx_temperature, {
-type: 'line',
-data: {
-labels: [temperatureDate1, temperatureDate2, temperatureDate3, temperatureDate4, temperatureDate5],
-datasets: [{
-label: 'Temperature',
-data: [temperatureVar1, temperatureVar2, temperatureVar3, temperatureVar4, temperatureVar5],
-borderWidth: 2,
-borderColor: "#eb4034",
-}]
-},
-options: {
-  scales: {
-    y: {
-      beginAtZero: true
-    }
-  },
-  plugins: {
-    legend: {
-        labels: {
-            font: {
-                size: 18,
-            },
-        },
-    },
-    tooltip: {
-      callbacks: {
-        label: function(context) {
-          var label = context.dataset.label || '';
-          if (label) {
-            label += ': ';
-          }
-          label += context.parsed.y + '°C';
-          return label;
-        }
-      }
-    }
-  }
-}
-});
-
-
-// SOUND
-const ctx_sound = document.getElementById('chart_sound');
-
-const chart_sound = new Chart(ctx_sound, {
-type: 'line',
-data: {
-labels: [soundDate1, soundDate2, soundDate3, soundDate4, soundDate5],
-datasets: [{
-label: 'Sound',
-data: [soundVar1, soundVar2, soundVar3, soundVar4, soundVar5],
-borderWidth: 2,
-borderColor: "#008000",
-}]
-},
-options: {
-  scales: {
-    y: {
-      beginAtZero: true
-    }
-  },
-  plugins: {
-    legend: {
-        labels: {
-            font: {
-                size: 18,
-            },
-        },
-    },
-    tooltip: {
-      callbacks: {
-        label: function(context) {
-          var label = context.dataset.label || '';
-          if (label) {
-            label += ': ';
-          }
-          label += context.parsed.y + 'dB';
-          return label;
-        }
-      }
-    }
-  }
-}
-});
-</script>
-
-<style>
-    :root {
-        --main-op-1: rgba(51, 51, 51, 0.75);
-        --radius-cercle: 99px;
-    }
-    * {
-        margin: 0;
-        padding: 0;
-        scroll-behavior: smooth;
-    }
-    body {
-        /* font-family: 'Press Start 2P', cursive; */
-        font-family: 'Mulish', sans-serif;
-
-        background-color: #333333;
-        /* background-color: black; */
-        color: white;
-    }
-    /* main {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 2vw;
-        margin: 20px 50px;
-    } */
-
-    h1 {
-        font-family: var(--main-font-1);
-        font-size: calc(5vw);
-        text-align: center;
-    }
-    h1 span {
-        font-size: calc(7vw);
-    }
-
-
-    #navbar {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        margin-bottom: 50px;
-    }
-    #navbar li a, h1 {
-        user-select: none;
-        -webkit-user-select: none;
-        -webkit-user-drag: none;
-    }
-    #navbar ul {
-        display: flex;
-        gap: 11px;
-        overflow: hidden;
-        list-style-type: none;
-        /* background-color: black; */
-        border-radius: 50px;
-    }
-    #navbar li {
-        display: inline;
-    }
-    #navbar li a {
-        display: flex;
-        padding: 10px 21px;
-        font-family: var(--main-font-1);
-        text-decoration: none;
-        color: white;
-        background-color: rgba(0, 0, 0, 0.5);
-        border-radius: 10px;
-    }
-    #navbar li a:hover {
-        color: #007BFF;
-    }
-
-    section.lightbox {
-        display: none;
-        width: 75%;
-        margin: auto;
-        padding: 40px;
-        border-radius: 20px;
-        background-color: rgba(0, 0, 0, 0.5);
-    }
-    section.lightbox:target {
-        display: block;
-    }
-
-.menuChart {
-    max-width: 100%;
-    overflow: auto;
-    display: grid; gap: 5.25rem;
-    grid-template-columns: repeat(1, 1fr);
-}
-.menuChart.grid1 {
-  grid-template-columns: repeat(3, 1fr);
-}
-.wchart {
-    background-color: rgba(0, 0, 0, 0.5);
-}
-
-    .among {
-        margin: 4px;
-    }
-
-    button {
-        background-color: rgb(173, 173, 173);
-        font-family: 'Mulish', sans-serif;
-        font-size: 12px;
-        color: black;
-        padding: 10px 18px;
-        border-radius: 10px;
-        border: 1.5px solid rgb(240 240 240);
-    }
-    button:hover {
-        /* background-color: rgb(163, 163, 163); */
-        filter: brightness(0.8);
-    }
-    button {
-        transition: 100ms;
-    }
-    button:not(.running):active {
-        transform: scale(0.9);
-    }
-    button.Top {
-        border-radius: 1px 1px 10px 10px;
-    }
-    button.Left {
-        border-radius: 10px 1px 1px 10px;
-    }
-    button.Right {
-        border-radius: 1px 10px 10px 1px;
-    }
-    button.running {
-        filter: brightness(0.7);
-        cursor: wait;
-    }
-
-
-    
-#humidity, #temperature, #sound {
-    display: inline-block;
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    padding: 10px;
-    border-radius: 5px;
-    background-color: rgba(0, 0, 0, 0.75);
-}
-#humidity {
-    color: #007BFF;
-}
-#temperature {
-    color: #eb4034;
-}
-#sound {
-    color: #008000;
-}
-</style>
-
-<!-- TABLE -->
-<script>
-let tableName = 'humidity_data';
-let dataunit = '%';
-function callDatacenter(tableName) {
-    $.getJSON('/datacenter', {table_name: tableName}, function(data) {
-        let table = $('#TableDatacenter');
-        table.find('tr:gt(0)').remove(); // Remove all rows except the header
-
-        // Sort the data based on the second column (Time) in ascending order
-        data.sort(function(a, b) {
-            return a[2] - b[2];
-        });
-
-        for (let i = 0; i < data.length; i++) {
-            dataTime = data[i][2];
-            dataData = data[i][1];
-            let newRow = $('<tr></tr>').append('<td>' + dataTime + '</td>').append('<td>' + dataData + dataunit + '</td>');
-            table.append(newRow);
-        }
-    });
-}
-$('#table-nameselect').on('change', function() {
-    tableName = $(this).val();
-    callDatacenterHello();
-});
-function callDatacenterHello() {
-    if (tableName === 'humidity_data') {
-        dataunit = '%';
-    } else if (tableName === 'temperature_data') {
-        dataunit = '°C';
-    } else if (tableName === 'sound_data') {
-        dataunit = ' dB';
-    }
-    callDatacenter(tableName);
-}
-</script>
-<style>
-select {
-    font-size: 15px;
-    font-family: 'Mulish', sans-serif;
-    border: none;
-    background-color: rgb(173, 173, 173);
-    padding: 3px 12px;
-    border-radius: 50px;
-}
-select:hover {
-    filter: brightness(0.8);
-}
-
-
-.customers {
-    border-collapse: collapse;
-    width: 100%;
-}
-
-.customers td, .customers th {
-    font-weight: normal;
-    border: 1px solid #ddd;
-    padding: 8px;
-}
-
-.customers tr:nth-child(even){background-color: var(--color-bkg-1);}
-
-.customers tr:hover {filter: brightness(0.7);}
-
-.customers th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: white;
-    color: black;
-}
-
-</style>
