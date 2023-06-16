@@ -17,6 +17,7 @@ DFRobot_TCS34725 tcs = DFRobot_TCS34725(&Wire, TCS34725_ADDRESS, TCS34725_INTEGR
 int buttonState = 0;
 int prevButtonState = HIGH;
 int stateProcess = 0;
+int confStart = 0;
 
 
 void setup() {
@@ -43,10 +44,10 @@ void loop() {
   buttonState = digitalRead(buttonPin);
   digitalWrite(LED_PIN, LOW);
 
-  stateProcess = 0;
+  confStart = 0;
   helloLED();
 
-  if (buttonState == LOW) {
+  if (buttonState != prevButtonState && buttonState == LOW) {
     stateProcess = 1;
     laps_detection();
   }
@@ -55,13 +56,14 @@ void loop() {
 
 
 void laps_detection() {
-  uint16_t clear, red, green, blue;
-  tcs.getRGBC(&red, &green, &blue, &clear);
-  tcs.lock();
-  do {
-    helloLED();
+  if (confStart != 1) {
+    while (confStart != 1) {
+      helloLED();
+      checkColorStart();
     }
-  while (red >= green + blue);
+    delay(2000);
+  }
+  if (confStart == 1) {
     stateProcess = 2;
     helloLED();
     startMillis = millis();
@@ -83,19 +85,29 @@ void laps_detection() {
         itoa(elapsed_time, time_str, 10);
 
         char text[50];
-        sprintf(text, "<red-lap=%s><red-time=%s>", lap_str, time_str);
+        sprintf(text, "<blue-lap=%s><blue-time=%s>", lap_str, time_str);
 
         radio.write(&text, sizeof(text));
 
-        Serial.print("<red-lap="); Serial.print(counter); Serial.print(">");
-        Serial.print("<red-time="); Serial.print(elapsed_time); Serial.println(">");
+        Serial.print("<blue-lap="); Serial.print(counter); Serial.print(">");
+        Serial.print("<blue-time="); Serial.print(elapsed_time); Serial.println(">");
         counter++;
         delay(3000);
       }
     }
-  Serial.println("<red-end>");
+  }
   counter = 1;
   stateProcess = 0;
+  Serial.println("<blue-end>");
+}
+
+void checkColorStart() {
+  uint16_t clear, red, green, blue;
+  tcs.getRGBC(&red, &green, &blue, &clear);
+  tcs.lock();
+  if (red >= green + blue) {
+    confStart = 1;
+  }
 }
 
 void helloLED() {
