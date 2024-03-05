@@ -20,9 +20,11 @@ The data collected is then sent to a Raspberry Pi, which processes it and stores
 
 Finally, we display the race results on a Flask website for all to see! 🖥️🌐
 
-## Project DRX: Second project but for bees 🐝📈
+## Project DRX: Second project but for bees 🌍🐝
 
-Project DRX, an exciting addition, expands upon Project T1 by focusing on the display of data collected from sensors placed in a hive. This project seamlessly feeds data into an SQLite database, which is then presented in both tabular and graphical formats for easy interpretation and analysis. 📊📈
+Project DRX, an exciting addition, expands upon Project T1 by focusing on the display of data collected from sensors placed in a hive. 🐝📈
+
+This project seamlessly feeds data into an SQLite database, which is then presented in both tabular and graphical formats for easy interpretation and analysis. 📊🎯
 
 ## Key Components 🛠️
 
