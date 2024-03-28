@@ -51,7 +51,11 @@ OR use `git clone https://github.com/gamerWOT9/Project-TSTI.git` in your Linux t
 
 Here is the link to an appetizer of the project, which I hope will help you better understand the spiel I made GL!
 
-[sti2dHUB/#article-tuto1-arduino_flask_sqlite](https://gamerwot9.github.io/sti2dHUB/#article-tuto1-arduino_flask_sqlite) or [instructables.com/Faire-Votre-Propre-Project-TSTI](https://www.instructables.com/Faire-Votre-Propre-Project-TSTI/)
+| NAME | LINK |
+|------|------|
+| README.md | [`EN Suject`](<Potit Project (mise en bouche)/README.md>) or [`FR Subject`](<Potit Project (mise en bouche)/README.fr.md>)|
+| sti2dHUB | [sti2dHUB/#article-tuto1-arduino_flask_sqlite](https://gamerwot9.github.io/sti2dHUB/#article-tuto1-arduino_flask_sqlite) |
+| Instructables | [instructables.com/Faire-Votre-Propre-Project-TSTI](https://www.instructables.com/Faire-Votre-Propre-Project-TSTI/) |
 
 ---
 
@@ -62,3 +66,14 @@ We welcome contributions! Feel free to submit a pull request or open an issue.
 ## License 📄
 
 Project T1 is open-source under the MIT License.
+
+```
+
+ ______   ______     ______       __     ______     ______     ______      ______   ______     ______   __    
+/\  == \ /\  == \   /\  __ \     /\ \   /\  ___\   /\  ___\   /\__  _\    /\__  _\ /\  ___\   /\__  _\ /\ \   
+\ \  _-/ \ \  __<   \ \ \/\ \   _\_\ \  \ \  __\   \ \ \____  \/_/\ \/    \/_/\ \/ \ \___  \  \/_/\ \/ \ \ \  
+ \ \_\    \ \_\ \_\  \ \_____\ /\_____\  \ \_____\  \ \_____\    \ \_\       \ \_\  \/\_____\    \ \_\  \ \_\ 
+  \/_/     \/_/ /_/   \/_____/ \/_____/   \/_____/   \/_____/     \/_/        \/_/   \/_____/     \/_/   \/_/ 
+                                                                                                              
+
+```
