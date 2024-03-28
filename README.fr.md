@@ -8,6 +8,10 @@
 ![FLASK](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white)
 ![SQLITE](https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white)
 
+README disponible en plusieurs langues :
+- [`English`](README.md)
+- [`Français`](README.fr.md)
+
 ## Projet T1 : Compétition de course alimentée par Arduino 🏎️🔌
 
 Bienvenue dans le Projet T1, notre projet de capstone de fin d'année qui donne vie à l'excitation d'une course ! 🏁💨
