@@ -18,7 +18,7 @@ First, you need to configure your Flask environment. Follow this tutorial to ins
 
 In `app.py`, we will start by importing the necessary modules, initializing the Flask application, and writing the code to retrieve data from the Arduino. The code is included in this tutorial, but I encourage you to understand it step by step. Don't hesitate to do research to deepen your understanding.
 
-```
+```py
 from flask import Flask, jsonify, render_template, request, redirect, url_for, g
 import sqlite3, os, time
 import subprocess
@@ -78,7 +78,7 @@ if __name__ == '__main__':
 
 To make our code cleaner and more modular, we will separate the SQLite database logic into a `database.py` file. This file will contain all the necessary code to interact with our `database.db` database. You can customize this code according to your needs.
 
-```
+```py
 import serial
 import sqlite3
 import re
@@ -116,7 +116,7 @@ conn.close()
 
 Create a `templates` folder and add a simple `index.html` file. This file will be the base template of our web site.
 
-```
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -149,7 +149,7 @@ Create a `templates` folder and add a simple `index.html` file. This file will b
 
 Finally, create a `static` folder and add a `script.js` file. This script will be used to send requests to `app.py` and display our database data in real-time.
 
-```
+```js
 $(document).ready(function()
 {
 	StartDatabase();
@@ -190,7 +190,7 @@ function callDatacenter()
 
 To test our project, we need an Arduino script. This script will simulate sending data to our Flask application.
 
-```
+```cpp
 void setup() 
 	{
 		Serial.begin(9600);
